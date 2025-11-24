@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.kristineb.gymlog.databinding.ActivityMainBinding;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     // global variables
 
-    private static final String TAG = "KB_GYMLOG";
+    public static final String TAG = "KB_GYMLOG";
     String mExercise = "";
     double mWeight = 0.0;
     int mReps = 0;
