@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     private GymLogRepository repository;
-
-    // global variables
 
     public static final String TAG = "KB_GYMLOG";
     String mExercise = "";
