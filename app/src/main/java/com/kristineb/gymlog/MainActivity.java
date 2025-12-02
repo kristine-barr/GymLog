@@ -16,11 +16,16 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.kristineb.gymlog.database.GymLogRepository;
 import com.kristineb.gymlog.database.entities.GymLog;
 import com.kristineb.gymlog.database.entities.User;
 import com.kristineb.gymlog.databinding.ActivityMainBinding;
+import com.kristineb.gymlog.viewHolders.GymLogAdapter;
+import com.kristineb.gymlog.viewHolders.GymLogViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     private GymLogRepository repository;
 
+    private GymLogViewModel gymLogViewModel;
+
     public static final String TAG = "KB_GYMLOG";
     String mExercise = "";
     double mWeight = 0.0;
@@ -52,8 +59,20 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        gymLogViewModel = new ViewModelProvider(this).get(GymLogViewModel.class);
+
+
+        RecyclerView recyclerView = binding.logDisplayRecyclerView;
+        final GymLogAdapter adapter = new GymLogAdapter(new GymLogAdapter.GymLogDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         repository = GymLogRepository.getRepository(getApplication());
         loginUser(savedInstanceState);
+
+        gymLogViewModel.getAllLogsById(loggedInUserId).observe(this, gymLogs -> {
+            adapter.submitList(gymLogs);
+        });
 
         // User is not logged in at this point, go to login screen
         if(loggedInUserId == -1) {
@@ -62,25 +81,28 @@ public class MainActivity extends AppCompatActivity {
         }
         updateSharedPreference();
 
-        binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod());
-        updateDisplay();
+        //TODO: REMOVE two lines below
+//        binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod());
+//        updateDisplay();
 
         binding.logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getInformationFromDisplay();
                 insertGymLogRecord();
-                updateDisplay();
+                // TODO: Remove line below
+//                updateDisplay();
             }
         });
 
-        binding.exerciseInputEditText.setOnClickListener(new View.OnClickListener() {
+        /* TODO: Remove this block
+                 binding.exerciseInputEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDisplay();
+//                updateDisplay();
             }
         });
-
+*/
     }
     private void loginUser(Bundle savedInstanceState) {
         // check shared preference for logged in user
@@ -199,16 +221,17 @@ public class MainActivity extends AppCompatActivity {
         repository.insertGymLog(log);
     }
 
+    @Deprecated
     private void updateDisplay() {
         ArrayList<GymLog> allLogs = repository.getAllLogsByUserId(loggedInUserId);
         if(allLogs.isEmpty()) {
-            binding.logDisplayTextView.setText(R.string.nothing_to_show_time_to_hit_the_gym);
+//            binding.logDisplayTextView.setText(R.string.nothing_to_show_time_to_hit_the_gym);
         }
         StringBuilder sb = new StringBuilder();
         for(GymLog log : allLogs) {
             sb.append(log);
         }
-        binding.logDisplayTextView.setText(sb.toString());
+//        binding.logDisplayTextView.setText(sb.toString());
     }
     private void getInformationFromDisplay() {
         // Set mExercise value equal to what the user inputs
