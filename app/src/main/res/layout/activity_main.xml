@@ -96,6 +96,8 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
         android:text="@string/log"
+        android:backgroundTint="@color/log_button_blue"
+        android:textColor="@color/custom_text_maroon"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

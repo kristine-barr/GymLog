@@ -1,5 +1,6 @@
 package com.kristineb.gymlog.viewHolders;
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;

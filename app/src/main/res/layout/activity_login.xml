@@ -55,6 +55,8 @@
         android:layout_margin="16dp"
         android:text="@string/login"
         android:textSize="32sp"
+        android:backgroundTint="@color/log_button_blue"
+        android:textColor="@color/custom_text_maroon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordLoginEditText" />

@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Custom colors -->
+    <color name="log_button_blue">#B7D8FE</color>
+    <color name="custom_text_maroon">#6B2338</color>
 </resources>
